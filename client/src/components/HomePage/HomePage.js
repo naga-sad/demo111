@@ -66,12 +66,12 @@ export default function HomePage() {
       <Box
       sx={{
         component:"form",
-        width: '97%',
+        width: '95%',
         margin: 'auto',
         padding: '40px',
         borderRadius: '10px',
         boxShadow: 3,
-        backgroundColor: 'white',
+        backgroundColor: 'green',
         textAlign: 'center',
         mt: 3,
         p: 3,

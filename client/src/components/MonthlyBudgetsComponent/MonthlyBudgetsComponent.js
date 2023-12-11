@@ -33,24 +33,24 @@ import Stack from "@mui/material/Stack";
 import Collapse from "@mui/material/Collapse";
 
 function createData(
-  sno,
-  monthlybudget_id,
-  user_id,
-  item,
+  serial,
+  monthlymybudget_id,
+  my_id,
+  product,
   month,
   year,
-  estimatedBudget,
-  actualBudget
+  estimatedmyBudget,
+  actualmyBudget
 ) {
   return {
-    sno,
-    monthlybudget_id,
-    user_id,
-    item,
+    serial,
+    monthlymybudget_id,
+    my_id,
+    product,
     month,
     year,
-    estimatedBudget,
-    actualBudget,
+    estimatedmyBudget,
+    actualmyBudget,
   };
 }
 
@@ -84,16 +84,16 @@ function stableSort(array, comparator) {
 
 const headCells = [
   {
-    id: "sNo",
+    id: "serial",
     numeric: false,
     disablePadding: true,
-    label: "S. no",
+    label: "serial",
   },
   {
-    id: "item",
+    id: "product",
     numeric: false,
     disablePadding: false,
-    label: "Item Name",
+    label: "product Name",
   },
   {
     id: "month",
@@ -108,16 +108,16 @@ const headCells = [
     label: "Year",
   },
   {
-    id: "estimatedBudget",
+    id: "estimatedmyBudget",
     numeric: false,
     disablePadding: false,
-    label: "Estimated Budget",
+    label: "Estimated my Budget",
   },
   {
-    id: "actualBudget",
+    id: "actualmyBudget",
     numeric: false,
     disablePadding: false,
-    label: "Actual Budget",
+    label: "Actual my Budget",
   },
 ];
 
@@ -139,9 +139,9 @@ class EnhancedTableHead extends Component {
     return (
       <TableHead>
         <TableRow>
-          <TableCell padding="checkbox">
+          <TableCell padding="dropbox">
             <Checkbox
-              color="primary"
+              color="standard"
               indeterminate={numSelected > 0 && numSelected < rowCount}
               checked={rowCount > 0 && numSelected === rowCount}
               onChange={onSelectAllClick}
@@ -209,8 +209,8 @@ class EnhancedTableToolbar extends Component {
         {numSelected > 0 ? (
           <Typography
             sx={{ flex: "1 1 100%" }}
-            color="inherit"
-            variant="subtitle1"
+            color="ButtonHighlight"
+            variant="button"
             component="div"
           >
             {numSelected} selected
@@ -240,7 +240,7 @@ class MonthlyBudgetComponent extends Component {
     this.state = {
       rows: [],
       order: "asc",
-      orderBy: "calories",
+      orderBy: "#83FF33",
       selected: [],
       page: 0,
       dense: false,
@@ -278,13 +278,13 @@ class MonthlyBudgetComponent extends Component {
           const rows = budgetArray.map((budget) =>
             createData(
               count++,
-              budget.monthlybudget_id,
-              budget.user_id,
-              budget.item,
+              budget.monthlybudgetmy_id,
+              budget.my_id,
+              budget.product,
               budget.month,
               budget.year,
-              budget.estimatedbudget,
-              budget.actualbudget
+              budget.estimatedmybudget,
+              budget.actualmybudget
             )
           );
           this.setState({ rows });
@@ -351,16 +351,16 @@ class MonthlyBudgetComponent extends Component {
     switch (key) {
       case "item":
         reqData = {
-          monthlybudget_id: row.monthlybudget_id,
-          item: target,
+          monthlymybudget_id: row.monthlymybudget_id,
+          product: target,
           month: row.month,
           year: row.year,
-          estimatedbudget: row.estimatedBudget,
-          actualbudget: row.actualBudget,
+          estimatedmybudget: row.estimatedmyBudget,
+          actualmybudget: row.actualmyBudget,
         };
         var rowsUpdated = this.state.rows;
         var foundObject = rowsUpdated.find(
-          (item) => item.monthlybudget_id === row.monthlybudget_id
+          (product) => product.monthlybudget_id === row.monthlymybudget_id
         );
         if (foundObject) {
           foundObject.item = target;
@@ -369,16 +369,16 @@ class MonthlyBudgetComponent extends Component {
         break;
       case "month":
         reqData = {
-          monthlybudget_id: row.monthlybudget_id,
-          item: row.item,
+          monthlymybudget_id: row.monthlymybudget_id,
+          product: row.item,
           month: target,
           year: row.year,
-          estimatedbudget: row.estimatedBudget,
-          actualbudget: row.actualBudget,
+          estimatedmybudget: row.estimatedmyBudget,
+          actualmybudget: row.actualmyBudget,
         };
         rowsUpdated = this.state.rows;
         foundObject = rowsUpdated.find(
-          (item) => item.monthlybudget_id === row.monthlybudget_id
+          (product) => product.monthlymybudget_id === row.monthlybudget_id
         );
         if (foundObject) {
           foundObject.month = target;
@@ -388,31 +388,31 @@ class MonthlyBudgetComponent extends Component {
 
       case "year":
         reqData = {
-          monthlybudget_id: row.monthlybudget_id,
-          item: row.item,
+          monthlymybudget_id: row.monthlymybudget_id,
+          product: row.product,
           month: row.month,
           year: Number(target),
-          estimatedbudget: row.estimatedBudget,
-          actualbudget: row.actualBudget,
+          estimatedmybudget: row.estimatedmyBudget,
+          actualmybudget: row.actualBudget,
         };
         rowsUpdated = this.state.rows;
         foundObject = rowsUpdated.find(
-          (item) => item.monthlybudget_id === row.monthlybudget_id
+          (product) => product.monthlymybudget_id === row.monthlymybudget_id
         );
         if (foundObject) {
           foundObject.year = target;
         }
         this.setState(rowsUpdated);
         break;
-      case "estimatedbudget":
+      case "estimatedmybudget":
         console.log("HERE", target);
         reqData = {
-          monthlybudget_id: row.monthlybudget_id,
-          item: row.item,
+          monthlymybudget_id: row.monthlymybudget_id,
+          product: row.item,
           month: row.month,
           year: row.year,
-          estimatedbudget: Number(target),
-          actualbudget: row.actualBudget,
+          estimatedmybudget: Number(target),
+          actualmybudget: row.actualmyBudget,
         };
         rowsUpdated = this.state.rows;
         foundObject = rowsUpdated.find(
@@ -423,14 +423,14 @@ class MonthlyBudgetComponent extends Component {
         }
         this.setState(rowsUpdated);
         break;
-      case "actualbudget":
+      case "actualmybudget":
         reqData = {
-          monthlybudget_id: row.monthlybudget_id,
-          item: row.item,
+          monthlymybudget_id: row.monthlymybudget_id,
+          product: row.product,
           month: row.month,
           year: row.year,
-          estimatedbudget: row.estimatedBudget,
-          actualbudget: Number(target),
+          estimatedmybudget: row.estimatedmyBudget,
+          actualmybudget: Number(target),
         };
         rowsUpdated = this.state.rows;
         foundObject = rowsUpdated.find(
@@ -790,9 +790,9 @@ class MonthlyBudgetComponent extends Component {
                   required
                   label="Actual Spent Budget"
                   type="number"
-                  value={this.state.newMonthlyData.actualbudget}
+                  value={this.state.newMonthlyData.actualmybudget}
                   onChange={(e) =>
-                    this.handleNewBudgetValueChange(e, "actualbudget")
+                    this.handleNewBudgetValueChange(e, "actualmybudget")
                   }
                   fullWidth
                 />
